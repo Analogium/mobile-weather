@@ -1,0 +1,29 @@
+<div>
+  <h1>Weather App</h1>
+
+  <div>
+    <h2>Temps actuel en {{address.country}}</h2>
+
+    <h3>{{address.address[1]}}</h3>
+    <p>{{actualTemp}} °C</p>
+  </div>
+
+
+  <form class="example-form">
+    <mat-form-field class="select-city">
+      <input type="text"
+      placeholder="Chercher une ville"
+      aria-label="Ville"
+      [formControl] = "myControl"
+      matInput
+      [matAutocomplete]="auto">
+
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let city of cities" [value]="city.name" (onSelectionChange)="changeCity(city)">
+          {{city.name}}, {{city.country}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  
+</div>
