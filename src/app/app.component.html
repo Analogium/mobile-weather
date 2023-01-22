@@ -1,11 +1,14 @@
 <div>
   <h1>Weather App</h1>
 
-  <div>
-    <h2>Temps actuel en {{address.country}}</h2>
+  <div class="weather-container">
+    <div  class="city">Temps actuel en {{address.country}}</div>
 
     <h3>{{address.address[1]}}</h3>
-    <p>{{actualTemp}} °C</p>
+
+    <div class="temperature">
+      Température: {{actualTemp}} °C
+    </div>
   </div>
 
 
@@ -25,5 +28,37 @@
       </mat-autocomplete>
     </mat-form-field>
   </form>
+
+  <div *ngIf="actualCity" class="weather-container">
+
+    <button mat-mini-fab matTooltip="Primary" color="primary" aria-label="Add City" (click)="addCity(actualCity)">
+      <mat-icon>add</mat-icon>
+    </button>
+
+    <h2>Ville selectionnée: {{actualCity.name}}, {{actualCity.country}}</h2>
+    
+    <p>
+      Température: {{actualCity.temperature}} °C
+    </p>
+
+  </div>
+
+  <div *ngIf="saveCities">
+    <div *ngFor="let item of saveCities" class="weather-container">
+
+      <button mat-mini-fab matTooltip="Primary" color="primary" aria-label="Add City" (click)="deleteCity(item)">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      <div>
+        <div class="city">{{item.name}}, {{item.country}}</div>
+
+        <div class="temperature">
+          Température: {{item.temperature}} °C
+        </div>
+
+      </div>
+    </div>
+  </div>
   
 </div>

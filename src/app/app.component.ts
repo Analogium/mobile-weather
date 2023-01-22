@@ -3,6 +3,7 @@ import { Geolocation } from '@capacitor/geolocation';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {FormControl} from '@angular/forms';
+import { exit } from 'process';
 
 
 @Component({
@@ -18,7 +19,9 @@ export class AppComponent {
   public address : any;
   public coordinates: any;
   public cities : any;
+  public actualCity: any;
   myControl = new FormControl();
+  public saveCities: any[] = JSON.parse(sessionStorage.getItem('saveCities') as any) || [];
 
   public options = {
     method: 'GET',
@@ -32,6 +35,9 @@ export class AppComponent {
   constructor( private http: HttpClient) { }
 
   async ngOnInit (){ 
+
+    this.changeBackground(new Date().getHours());
+
     this.coordinates = await Geolocation.getCurrentPosition();
     this.getCurrentAdress(this.coordinates.coords.latitude, this.coordinates.coords.longitude).subscribe(data => {
 
@@ -39,9 +45,6 @@ export class AppComponent {
       this.address.address = this.address.address.split(',');
     });
 
-    this.getCompleteCity('renn').subscribe(data => {
-      this.cities = data.results;
-    })
 
     this.myControl.valueChanges.subscribe(x => {
       this.getCompleteCity(x).subscribe(cities => {
@@ -53,6 +56,8 @@ export class AppComponent {
 
       this.actualTemp = data.current_weather.temperature;
     });
+
+    this.updateSaveCities();
 
   }
 
@@ -69,5 +74,76 @@ export class AppComponent {
   }
 
   changeCity(city: any): void {
-    // A FAIRE
+    this.actualCity = city;
+    this.getCurrentWeather(city.latitude, city.longitude).subscribe(data => {
+      this.actualCity.temperature = data.current_weather.temperature;
+    })
+  }
+
+  addCity(city: any): void {
+
+    var pres = false;
+
+    this.saveCities.forEach(element => {
+      if(element.id == city.id){
+        pres = true;
+      }
+    });
+
+    if(!pres){
+      this.saveCities.push(city);
+
+      this.saveToSession();
+    }
+
+  }
+
+  deleteCity(city: any): void {
+    this.saveCities = this.saveCities.filter(c => c.id !== city.id);
+
+    this.saveToSession();
+  }
+
+  saveToSession() {
+    sessionStorage.setItem('saveCities', JSON.stringify(this.saveCities));
+  }
+
+  updateSaveCities() {
+  
+    for (let i = 0; i < this.saveCities.length; i++) {
+      this.getCompleteCity(this.saveCities[i].name).subscribe(data => {
+
+        data.results.forEach((city: {
+          longitude: number;
+          latitude: number; id: any; })  => {
+
+          if(city.id == this.saveCities[i].id){
+            this.saveCities[i] = city;
+
+            this.getCurrentWeather(city.latitude, city.longitude).subscribe(data_weather => {
+              this.saveCities[i].temperature = data_weather.current_weather.temperature;
+            })
+          }
+        });
+      })
+
+      
+    }
+    this.saveToSession();
+  }
+
+
+  changeBackground(time: number) {
+    if (time >= 18 || time < 6) {
+      let elements = document.getElementsByClassName("weather-container")  as HTMLCollectionOf<HTMLElement>;
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].style.backgroundColor = "#141e30";
+        elements[i].style.color = "white";
+        elements[i].style.border = "2px solid white";
+        document.body.querySelectorAll("div").forEach(el => el.style.color = "white");
+        document.body.style.backgroundColor = "#141e30";
+      }
+    }
+  }
+
 }
