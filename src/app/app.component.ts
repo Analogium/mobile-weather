@@ -36,7 +36,6 @@ export class AppComponent {
 
   async ngOnInit (){ 
 
-    this.changeBackground(new Date().getHours());
 
     this.coordinates = await Geolocation.getCurrentPosition();
     this.getCurrentAdress(this.coordinates.coords.latitude, this.coordinates.coords.longitude).subscribe(data => {
@@ -130,20 +129,6 @@ export class AppComponent {
       
     }
     this.saveToSession();
-  }
-
-
-  changeBackground(time: number) {
-    if (time >= 18 || time < 6) {
-      let elements = document.getElementsByClassName("weather-container")  as HTMLCollectionOf<HTMLElement>;
-      for (let i = 0; i < elements.length; i++) {
-        elements[i].style.backgroundColor = "#141e30";
-        elements[i].style.color = "white";
-        elements[i].style.border = "2px solid white";
-        document.body.querySelectorAll("div").forEach(el => el.style.color = "white");
-        document.body.style.backgroundColor = "#141e30";
-      }
-    }
   }
 
 }
