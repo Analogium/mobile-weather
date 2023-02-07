@@ -56,7 +56,7 @@
   <div *ngIf="saveCities">
     <div *ngFor="let item of saveCities" class="weather-container">
 
-      <div>
+      <div [routerLink]="['/details']">
         <div class="city">{{item.name}}, {{item.country}}</div>
 
         <div class="temperature">
