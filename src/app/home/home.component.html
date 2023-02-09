@@ -1,0 +1,75 @@
+<div>
+    <h1>Weather App</h1>
+  
+    <div class="principal-container">
+      <div>
+        <h2  class="city">Temps actuel en {{address.country}}</h2>
+  
+        <h3>{{address.address[1]}}</h3>
+      </div>
+  
+      <div class="temperature">
+         {{actualTemp}} °C
+      </div>
+    </div>
+  
+  
+    <form class="example-form">
+      <mat-form-field class="select-city">
+        <div class="input-group">
+          <input type="text"
+          class="input"
+          placeholder="Chercher une ville"
+          aria-label="Ville"
+          [formControl] = "myControl"
+          matInput
+          [matAutocomplete]="auto">
+          <div></div></div>
+  
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let city of cities" [value]="city.name" (onSelectionChange)="changeCity(city)">
+            {{city.name}}, {{city.country}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+    
+  
+    <div *ngIf="actualCity" class="weather-container actualCity">
+  
+      <div>
+        <h2>{{actualCity.name}}, {{actualCity.country}}</h2>
+        
+        <div class="temperature">
+          {{actualCity.temperature}} °C
+        </div>
+      </div>
+  
+  
+      <button mat-mini-fab matTooltip="Primary" color="primary" aria-label="Add City" class="btn add" (click)="addCity(actualCity)">
+        <mat-icon>add</mat-icon>
+        <span>Ajouter</span>
+      </button>
+  
+    </div>
+  
+    <div *ngIf="saveCities">
+      <div *ngFor="let item of saveCities" class="weather-container">
+  
+        <div [routerLink]="['/details']" [state]="{ data: {item}}">
+          <h2 class="city">{{item.name}}, {{item.country}}</h2>
+  
+          <div class="temperature">
+            {{item.temperature}} °C
+          </div>
+  
+        </div>
+  
+        <button mat-mini-fab matTooltip="Primary" color="primary" aria-label="Add City" class="btn delete" (click)="deleteCity(item)">
+          <mat-icon>delete</mat-icon>
+          <span>Supprimer</span>
+        </button>
+      </div>
+    </div>
+    
+  </div>

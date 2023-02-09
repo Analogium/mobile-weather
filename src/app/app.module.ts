@@ -12,12 +12,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import { DetailsComponent } from './details/details.component';
 import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     DetailsComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

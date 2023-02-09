@@ -1,1 +1,33 @@
-<p>details works!</p>
+<header>
+
+     <div>
+        <mat-icon [routerLink]="['']">arrow_back</mat-icon>
+
+       <h1>{{city.name}}, {{city.country}}</h1>
+     </div>
+</header>
+
+<div>
+
+    
+    <div class="principal-container">
+        <div>
+            <h2>Temps actuel</h2>
+        </div>
+
+        <div class="temperature">
+            {{detailsMeteo.current_weather.temperature}} °C
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
