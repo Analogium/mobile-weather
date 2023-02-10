@@ -1,19 +1,21 @@
 header {
 
+    display: grid;
+    grid-template-columns: 15% 70%;
+    flex-direction: column;
+
+    text-align: center;
     mat-icon {
-        position: absolute;
-        left: 0;
-        align-items: center;
-        margin-left: 5px;
-        margin-top: 7.5px;
+        margin-left: 10px;
         transform: scale(2);
     }
 
     div {
-        justify-self: center;
-        flex: 1;
+        display: flex;
+        align-items: center;
     }
 }
+
 
 
 div {
@@ -23,17 +25,18 @@ div {
 
 .principal-container {
     display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 70%;
-      margin: 0 auto;
-      margin-top: 10px;
-      padding-bottom: 20px;
-      border-radius: 10px;
-      color: white;
-  
-      background: #0B3F83;
-  
-  
-      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-  }
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 10px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    color: white;
+
+    background: rgb(108, 60, 164);
+    background: linear-gradient(0deg, rgba(108, 60, 164, 1) 0%, rgba(36, 9, 121, 1) 100%);
+
+
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}

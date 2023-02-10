@@ -2,7 +2,7 @@ import { Component, NgModule } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {FormControl} from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { exit } from 'process';
 
 
@@ -10,15 +10,15 @@ import { exit } from 'process';
   selector: 'app-root',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
-  
+
 })
 
 export class HomeComponent {
   title = 'mobile-app';
   public actualTemp = '';
-  public address : any;
+  public address: any;
   public coordinates: any;
-  public cities : any;
+  public cities: any;
   public actualCity: any;
   myControl = new FormControl();
   public saveCities: any[] = JSON.parse(sessionStorage.getItem('saveCities') as any) || [];
@@ -32,10 +32,10 @@ export class HomeComponent {
   };
 
 
-  constructor( private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  async ngOnInit (){ 
-    
+  async ngOnInit() {
+
 
 
     this.coordinates = await Geolocation.getCurrentPosition();
@@ -63,11 +63,11 @@ export class HomeComponent {
 
   getCurrentWeather(latitude: number, longitude: number): Observable<any> {
 
-    return this.http.get("https://api.open-meteo.com/v1/forecast?latitude="+ latitude +"&longitude="+ longitude + "&current_weather=true" );
+    return this.http.get("https://api.open-meteo.com/v1/forecast?latitude=" + latitude + "&longitude=" + longitude + "&current_weather=true");
   }
 
   getCurrentAdress(latitude: number, longitude: number): Observable<any> {
-    return this.http.get('https://trueway-geocoding.p.rapidapi.com/ReverseGeocode?location='+ latitude + '%2C' + longitude + '&language=en', this.options);
+    return this.http.get('https://trueway-geocoding.p.rapidapi.com/ReverseGeocode?location=' + latitude + '%2C' + longitude + '&language=en', this.options);
   }
 
   getCompleteCity(nom: string): Observable<any> {
@@ -86,13 +86,14 @@ export class HomeComponent {
     var pres = false;
 
     this.saveCities.forEach(element => {
-      if(element.id == city.id){
+      if (element.id == city.id) {
         pres = true;
       }
     });
 
-    if(!pres){
+    if (!pres) {
       this.saveCities.push(city);
+      this.actualCity = null;
 
       this.saveToSession();
     }
@@ -110,15 +111,16 @@ export class HomeComponent {
   }
 
   updateSaveCities() {
-  
+
     for (let i = 0; i < this.saveCities.length; i++) {
       this.getCompleteCity(this.saveCities[i].name).subscribe(data => {
 
         data.results.forEach((city: {
           longitude: number;
-          latitude: number; id: any; })  => {
+          latitude: number; id: any;
+        }) => {
 
-          if(city.id == this.saveCities[i].id){
+          if (city.id == this.saveCities[i].id) {
             this.saveCities[i] = city;
 
             this.getCurrentWeather(city.latitude, city.longitude).subscribe(data_weather => {
@@ -128,7 +130,7 @@ export class HomeComponent {
         });
       })
 
-      
+
     }
     this.saveToSession();
   }
