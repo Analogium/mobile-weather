@@ -4,6 +4,7 @@
 /bazel-out
 /integration/bazel/bazel-*
 *.log
+dist/
 node_modules/
 android/
 *.json
