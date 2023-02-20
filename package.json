@@ -24,6 +24,7 @@
     "@capacitor/cli": "^4.6.1",
     "@capacitor/core": "^4.6.1",
     "@capacitor/geolocation": "^4.1.0",
+    "@capacitor/preferences": "^4.0.2",
     "@capgo/nativegeocoder": "^0.1.43",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

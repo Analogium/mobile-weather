@@ -21,7 +21,7 @@ export class HomeComponent {
   public cities: any;
   public actualCity: any;
   myControl = new FormControl();
-  public saveCities: any[] = JSON.parse(sessionStorage.getItem('saveCities') as any) || [];
+  public saveCities: any[] = JSON.parse(localStorage.getItem('saveCities') as any) || [];
 
   public options = {
     method: 'GET',
@@ -107,7 +107,7 @@ export class HomeComponent {
   }
 
   saveToSession() {
-    sessionStorage.setItem('saveCities', JSON.stringify(this.saveCities));
+    localStorage.setItem('saveCities', JSON.stringify(this.saveCities));
   }
 
   updateSaveCities() {
