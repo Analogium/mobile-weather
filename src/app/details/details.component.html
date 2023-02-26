@@ -1,33 +1,27 @@
-<header>
-    <div>
-        <mat-icon [routerLink]="['']">arrow_back</mat-icon>
-    </div>
-
-    <h1>{{city.name}}, {{city.country}}</h1>
-
-</header>
-
 <div>
-
-
-    <div class="principal-container">
+    <header>
         <div>
-            <h2>Temps actuel</h2>
+            <mat-icon [routerLink]="['']">arrow_back</mat-icon>
         </div>
 
-        <div class="temperature">
-            {{detailsMeteo.current_weather.temperature}} °C
+        <h1>{{city.name}}, {{city.country}}</h1>
+
+    </header>
+
+    <div>
+
+
+        <div class="principal-container">
+            <div>
+                <h2>Temps actuel</h2>
+            </div>
+
+            <div class="temperature">
+                {{detailsMeteo.current_weather.temperature}} °C
+            </div>
         </div>
+
+
+
     </div>
-
-
-
-
-
-
-
-
-
-
-
 </div>
